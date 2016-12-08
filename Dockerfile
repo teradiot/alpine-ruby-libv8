@@ -1,7 +1,7 @@
 FROM ruby:2.3.3-alpine
 
 ENV LIBV8_MAJOR 5.3.332.38
-ENV LIBV8_VERSION 5.3.332.38.3
+ENV LIBV8_VERSION 5.3.332.38.3-x86_64-linux
 
 RUN set -ex \
     \
@@ -20,8 +20,9 @@ RUN set -ex \
     # && git clone --recursive git://github.com/cowboyd/libv8.git \
     && git clone -b $LIBV8_MAJOR --recursive git://github.com/teradiot/libv8.git \
     && cd ./libv8 \
-    && export GYP_DEFINES="$GYP_DEFINES linux_use_bundled_binutils=0 linux_use_bundled_gold=0" \
+    && sed -i -e 's/Gem::Platform::RUBY/Gem::Platform.local/' libv8.gemspec \
     && gem build --verbose libv8.gemspec \
+    && export GYP_DEFINES="$GYP_DEFINES linux_use_bundled_binutils=0 linux_use_bundled_gold=0" \
     && gem install --verbose libv8-$LIBV8_VERSION.gem \
     \
     && apk del .libv8-builddeps \
