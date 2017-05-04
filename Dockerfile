@@ -1,7 +1,7 @@
 FROM ruby:2.4.0-alpine
 
 ENV LIBV8_MAJOR 5.3.332.38
-ENV LIBV8_VERSION 5.3.332.38.3-x86_64-linux
+ENV LIBV8_VERSION 5.3.332.38.5-x86_64-linux
 
 RUN set -ex \
     \
@@ -17,8 +17,8 @@ RUN set -ex \
       linux-headers \
       build-base \
     \
-    # && git clone --recursive git://github.com/cowboyd/libv8.git \
-    && git clone -b $LIBV8_MAJOR --recursive git://github.com/teradiot/libv8.git \
+    && git clone -b $LIBV8_MAJOR --recursive git://github.com/cowboyd/libv8.git \
+    # && git clone -b $LIBV8_MAJOR --recursive git://github.com/teradiot/libv8.git \
     && cd ./libv8 \
     && sed -i -e 's/Gem::Platform::RUBY/Gem::Platform.local/' libv8.gemspec \
     && gem build --verbose libv8.gemspec \
