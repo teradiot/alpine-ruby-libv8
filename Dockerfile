@@ -18,7 +18,6 @@ RUN set -ex \
       build-base \
     \
     && git clone -b $LIBV8_MAJOR --recursive git://github.com/cowboyd/libv8.git \
-    # && git clone -b $LIBV8_MAJOR --recursive git://github.com/teradiot/libv8.git \
     && cd ./libv8 \
     && sed -i -e 's/Gem::Platform::RUBY/Gem::Platform.local/' libv8.gemspec \
     && gem build --verbose libv8.gemspec \
