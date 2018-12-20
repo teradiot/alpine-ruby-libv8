@@ -101,8 +101,8 @@ FROM alpine:latest as v8
 
 COPY --from=source /tmp/v8 /tmp/v8
 COPY --from=gn-builder /usr/local/bin/gn /tmp/v8/buildtools/linux64/gn
-COPY 6.7.288.46/BUILD.gn /tmp/v8/BUILD.gn
-COPY 6.7.288.46/build-config-BUILD.gn /tmp/v8/build/config/BUILD.gn
+COPY BUILD.gn /tmp/v8/BUILD.gn
+COPY build-config-BUILD.gn /tmp/v8/build/config/BUILD.gn
 
 RUN \
   apk add --update --virtual .v8-build-dependencies \
